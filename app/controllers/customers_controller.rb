@@ -23,7 +23,8 @@ class CustomersController < ApplicationController
   end
 
   def update
-    @customer.update(customer_params)
+    # @customer.update(customer_params)
+    Customer.update_customer(customer_params, @customer.id)
     redirect_to customers_path
   end
 

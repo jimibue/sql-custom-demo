@@ -32,6 +32,14 @@ class Customer < ApplicationRecord
     )
   end
 
+  def self.update_customer(customer, user_id)
+    Customer.find_by_sql(["
+      UPDATE customers AS c
+      SET first_name = ?, last_name = ?, email= ?, phone= ?, updated_at = ?
+      WHERE c.id = ?;
+      ", customer[:first_name], customer[:last_name], customer[:email], customer[:phone], DateTime.now, user_id])
+  end
+
   def self.destroy_customer(customer_id)
     Customer.find_by_sql("
       DELETE FROM customers as c
